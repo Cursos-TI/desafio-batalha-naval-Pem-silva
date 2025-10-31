@@ -1,40 +1,229 @@
+// desafio Nivel novato 
+
 #include <stdio.h>
 
-// Desafio Batalha Naval - MateCheck
-// Este código inicial serve como base para o desenvolvimento do sistema de Batalha Naval.
-// Siga os comentários para implementar cada parte do desafio.
+int main() {
+    int tabuleiro[10][10] = {0};
+
+    int x_vertical = 2;
+    int y_vertical = 3;
+    int tamanho_vertical = 4;
+
+    int x_horizontal = 6;
+    int y_horizontal = 1;
+    int tamanho_horizontal = 3;
+
+    printf("=== POSICIONAMENTO DOS NAVIOS ===\n\n");
+
+    printf("Navio Vertical (tamanho %d):\n", tamanho_vertical);
+    for (int i = 0; i < tamanho_vertical; i++) {
+        tabuleiro[x_vertical + i][y_vertical] = 1;
+        printf("Parte %d -> Coordenada: (%d, %d)\n", i + 1, x_vertical + i, y_vertical);
+    }
+
+    printf("\n");
+
+    printf("Navio Horizontal (tamanho %d):\n", tamanho_horizontal);
+    for (int j = 0; j < tamanho_horizontal; j++) {
+        tabuleiro[x_horizontal][y_horizontal + j] = 1;
+        printf("Parte %d -> Coordenada: (%d, %d)\n", j + 1, x_horizontal, y_horizontal + j);
+    }
+
+    printf("\n=== Fim do posicionamento ===\n");
+
+    return 0;
+}
+
+// Desafio nivel Aventureiro 
+
+import random
+
+def posicionar_navio(tabuleiro, tamanho=3, direcao='H'):
+    n = len(tabuleiro)
+    while True:
+        linha = random.randint(0, n - 1)
+        coluna = random.randint(0, n - 1)
+        
+        # Calcular posições possíveis
+        if direcao == 'H' and coluna + tamanho <= n:
+            posicoes = [(linha, coluna + i) for i in range(tamanho)]
+        elif direcao == 'V' and linha + tamanho <= n:
+            posicoes = [(linha + i, coluna) for i in range(tamanho)]
+        elif direcao == 'D' and linha + tamanho <= n and coluna + tamanho <= n:
+            posicoes = [(linha + i, coluna + i) for i in range(tamanho)]
+        else:
+            continue
+        
+        # Verifica se as posições estão livres
+        if all(tabuleiro[l][c] == 0 for l, c in posicoes):
+            for l, c in posicoes:
+                tabuleiro[l][c] = 3
+            break
+
+# Criar tabuleiro e posicionar 4 navios
+tabuleiro = [[0]*10 for _ in range(10)]
+direcoes = ['H', 'V', 'D', 'D']  # 2 diagonais
+for d in direcoes:
+    posicionar_navio(tabuleiro, 3, d)
+
+    // Desaio Nivel Mestre 
+
+    #include <stdio.h>
+
+#define N 5 #include <stdio.h>
+
+#define N 5 
+
+void exibirMatriz(int matriz[N][N]) {
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            printf("%d ", matriz[i][j]);
+        }
+        printf("\n");
+    }
+    printf("\n");
+}
+
+void limparMatriz(int matriz[N][N]) {
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            matriz[i][j] = 0;
+        }
+    }
+}
+
+void habilidadeCone(int matriz[N][N]) {
+    limparMatriz(matriz);
+    int centro = N / 2;
+
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            if (i >= centro && j >= centro - (i - centro) && j <= centro + (i - centro)) {
+                matriz[i][j] = 1;
+            }
+        }
+    }
+
+    printf("🧿 Habilidade: CONE\n");
+    exibirMatriz(matriz);
+}
+
+void habilidadeCruz(int matriz[N][N]) {
+    limparMatriz(matriz);
+    int centro = N / 2;
+
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            if (i == centro || j == centro) {
+                matriz[i][j] = 1;
+            }
+        }
+    }
+
+    printf("✝️ Habilidade: CRUZ\n");
+    exibirMatriz(matriz);
+}
+
+void habilidadeOctaedro(int matriz[N][N]) {
+    limparMatriz(matriz);
+    int centro = N / 2;
+
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            if (abs(i - centro) + abs(j - centro) <= centro) {
+                matriz[i][j] = 1;
+            }
+        }
+    }
+
+    printf("🔷 Habilidade: OCTAEDRO\n");
+    exibirMatriz(matriz);
+}
+
 
 int main() {
-    // Nível Novato - Posicionamento dos Navios
-    // Sugestão: Declare uma matriz bidimensional para representar o tabuleiro (Ex: int tabuleiro[5][5];).
-    // Sugestão: Posicione dois navios no tabuleiro, um verticalmente e outro horizontalmente.
-    // Sugestão: Utilize `printf` para exibir as coordenadas de cada parte dos navios.
+    int tabuleiro[N][N];
 
-    // Nível Aventureiro - Expansão do Tabuleiro e Posicionamento Diagonal
-    // Sugestão: Expanda o tabuleiro para uma matriz 10x10.
-    // Sugestão: Posicione quatro navios no tabuleiro, incluindo dois na diagonal.
-    // Sugestão: Exiba o tabuleiro completo no console, mostrando 0 para posições vazias e 3 para posições ocupadas.
 
-    // Nível Mestre - Habilidades Especiais com Matrizes
-    // Sugestão: Crie matrizes para representar habilidades especiais como cone, cruz, e octaedro.
-    // Sugestão: Utilize estruturas de repetição aninhadas para preencher as áreas afetadas por essas habilidades no tabuleiro.
-    // Sugestão: Exiba o tabuleiro com as áreas afetadas, utilizando 0 para áreas não afetadas e 1 para áreas atingidas.
+    habilidadeCone(tabuleiro);
+    habilidadeCruz(tabuleiro);
+    habilidadeOctaedro(tabuleiro);
 
-    // Exemplos de exibição das habilidades:
-    // Exemplo para habilidade em cone:
-    // 0 0 1 0 0
-    // 0 1 1 1 0
-    // 1 1 1 1 1
-    
-    // Exemplo para habilidade em octaedro:
-    // 0 0 1 0 0
-    // 0 1 1 1 0
-    // 0 0 1 0 0
+    return 0;
+}
 
-    // Exemplo para habilidade em cruz:
-    // 0 0 1 0 0
-    // 1 1 1 1 1
-    // 0 0 1 0 0
+void exibirMatriz(int matriz[N][N]) {
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            printf("%d ", matriz[i][j]);
+        }
+        printf("\n");
+    }
+    printf("\n");
+}
+
+void limparMatriz(int matriz[N][N]) {
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            matriz[i][j] = 0;
+        }
+    }
+}
+
+void habilidadeCone(int matriz[N][N]) {
+    limparMatriz(matriz);
+    int centro = N / 2;
+
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            if (i >= centro && j >= centro - (i - centro) && j <= centro + (i - centro)) {
+                matriz[i][j] = 1;
+            }
+        }
+    }
+
+    printf("🧿 Habilidade: CONE\n");
+    exibirMatriz(matriz);
+}
+
+void habilidadeCruz(int matriz[N][N]) {
+    limparMatriz(matriz);
+    int centro = N / 2;
+
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            if (i == centro || j == centro) {
+                matriz[i][j] = 1;
+            }
+        }
+    }
+
+    printf("✝️ Habilidade: CRUZ\n");
+    exibirMatriz(matriz);
+}
+
+void habilidadeOctaedro(int matriz[N][N]) {
+    limparMatriz(matriz);
+    int centro = N / 2;
+
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            if (abs(i - centro) + abs(j - centro) <= centro) {
+                matriz[i][j] = 1;
+            }
+        }
+    }
+
+    printf("🔷 Habilidade: OCTAEDRO\n");
+    exibirMatriz(matriz);
+}
+
+int main() {
+    int tabuleiro[N][N];
+
+    habilidadeCone(tabuleiro);
+    habilidadeCruz(tabuleiro);
+    habilidadeOctaedro(tabuleiro);
 
     return 0;
 }
